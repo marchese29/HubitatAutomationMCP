@@ -1,0 +1,12 @@
+[project]
+name = "hubitatautomationmcp"
+version = "0.1.0"
+description = "MCP implementation for Hubitat home hub with support for automation"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi>=0.115.12",
+    "fastmcp>=2.4.0",
+    "httpx>=0.28.1",
+    "pydantic>=2.11.4",
+]
