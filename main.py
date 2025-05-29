@@ -1,6 +1,20 @@
-def main():
-    print("Hello from hubitatautomationmcp!")
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/")
+def read_root():
+    return {"Hello": "World"}
+
+
+@app.post("/he_event")
+def handle_device_event():
+    # TODO: Implement Hubitat event handling
+    pass
 
 
 if __name__ == "__main__":
-    main()
+    import uvicorn
+
+    uvicorn.run(app, host="0.0.0.0", port=8000)

@@ -1,0 +1,39 @@
+{
+    "Switch": [
+        {
+            "name": "on"
+        },
+        {
+            "name": "off"
+        }
+    ],
+    "SwitchLevel": [
+        {
+            "name": "setLevel",
+            "arguments": [
+                {
+                    "name": "level",
+                    "value_type": "integer",
+                    "restrictions": {
+                        "minimum": 0,
+                        "maximum": 100
+                    },
+                    "required": true
+                }
+            ]
+        }
+    ],
+    "MotionSensor": [],
+    "ContactSensor": [],
+    "PresenceSensor": [],
+    "TemperatureMeasurement": [],
+    "RelativeHumidityMeasurement": [],
+    "GarageDoorControl": [
+        {
+            "name": "open"
+        },
+        {
+            "name": "close"
+        }
+    ]
+}
