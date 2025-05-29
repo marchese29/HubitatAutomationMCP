@@ -5,8 +5,8 @@ description = "MCP implementation for Hubitat home hub with support for automati
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "fastapi>=0.115.12",
-    "fastmcp>=2.5.1",
+    "fastapi[standard]>=0.115.12",
+    "fastmcp>=2.5.2",
     "httpx>=0.28.1",
     "pydantic>=2.11.5",
 ]

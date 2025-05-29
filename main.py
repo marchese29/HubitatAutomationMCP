@@ -1,6 +1,19 @@
+import asyncio as aio
+
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 
-app = FastAPI()
+
+@asynccontextmanager
+async def lifespan(_: FastAPI):
+    from hubitat_mcp.server import mcp
+
+    aio.create_task(mcp.run_async("stdio"))
+
+    yield
+
+
+app = FastAPI(lifespan=lifespan)
 
 
 @app.get("/")
