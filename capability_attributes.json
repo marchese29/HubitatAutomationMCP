@@ -1,84 +1,274 @@
 {
-    "Switch": [
+    "AccelerationSensor": [
         {
-            "name": "switch",
-            "value_type": "string",
+            "name": "acceleration",
             "restrictions": {
                 "enum": [
-                    "on",
-                    "off"
-                ]
-            }
-        }
-    ],
-    "SwitchLevel": [
-        {
-            "name": "level",
-            "value_type": "integer",
-            "restrictions": {
-                "minimum": 0,
-                "maximum": 100
-            },
-            "special_info": "A value above 0 indicates that the 'switch' attribute is 'on'"
-        }
-    ],
-    "MotionSensor": [
-        {
-            "name": "motion",
-            "value_type": "string",
-            "restrictions": {
-                "enum": [
-                    "active",
-                    "inactive"
+                    "inactive",
+                    "active"
                 ]
             },
-            "special_info": "'active' indicates current motion, 'inactive' indicates no motion"
+            "value_type": "string"
         }
     ],
-    "ContactSensor": [
+    "Actuator": [],
+    "AirQuality": [
         {
-            "name": "contact",
-            "value_type": "string",
+            "name": "airQuality",
+            "value_type": "number"
+        },
+        {
+            "name": "airQualityIndex",
+            "value_type": "number"
+        }
+    ],
+    "Alarm": [
+        {
+            "name": "alarm",
             "restrictions": {
                 "enum": [
-                    "closed",
-                    "open"
+                    "off",
+                    "strobe",
+                    "siren",
+                    "both"
                 ]
-            }
+            },
+            "value_type": "string"
         }
     ],
-    "PresenceSensor": [
+    "AudioNotification": [],
+    "AudioVolume": [
+        {
+            "name": "volume",
+            "restrictions": {
+                "maximum": 100,
+                "minimum": 0
+            },
+            "value_type": "number"
+        },
+        {
+            "name": "mute",
+            "restrictions": {
+                "enum": [
+                    "muted",
+                    "unmuted"
+                ]
+            },
+            "value_type": "string"
+        }
+    ],
+    "Battery": [
+        {
+            "name": "battery",
+            "restrictions": {
+                "maximum": 100,
+                "minimum": 0
+            },
+            "value_type": "number"
+        }
+    ],
+    "Beacon": [
         {
             "name": "presence",
-            "value_type": "string",
             "restrictions": {
                 "enum": [
                     "present",
                     "not present"
                 ]
-            }
+            },
+            "value_type": "string"
         }
     ],
-    "TemperatureMeasurement": [
+    "Bulb": [
         {
-            "name": "temperature",
+            "name": "switch",
+            "restrictions": {
+                "enum": [
+                    "on",
+                    "off"
+                ]
+            },
+            "value_type": "string"
+        }
+    ],
+    "CarbonDioxideMeasurement": [
+        {
+            "name": "carbonDioxide",
             "value_type": "number"
         }
     ],
-    "RelativeHumidityMeasurement": [
+    "CarbonMonoxideDetector": [
         {
-            "name": "humidity",
-            "value_type": "number",
+            "name": "carbonMonoxide",
             "restrictions": {
-                "minimum": 0,
-                "maximum": 100
-            }
+                "enum": [
+                    "clear",
+                    "detected",
+                    "tested"
+                ]
+            },
+            "value_type": "string"
         }
     ],
+    "ChangeLevel": [
+        {
+            "name": "level",
+            "restrictions": {
+                "maximum": 100,
+                "minimum": 0
+            },
+            "value_type": "number"
+        }
+    ],
+    "Chime": [],
+    "ColorControl": [
+        {
+            "name": "hue",
+            "restrictions": {
+                "maximum": 360,
+                "minimum": 0
+            },
+            "value_type": "number"
+        },
+        {
+            "name": "saturation",
+            "restrictions": {
+                "maximum": 100,
+                "minimum": 0
+            },
+            "value_type": "number"
+        },
+        {
+            "name": "color",
+            "value_type": "string"
+        }
+    ],
+    "ColorMode": [
+        {
+            "name": "colorMode",
+            "restrictions": {
+                "enum": [
+                    "RGB",
+                    "CT"
+                ]
+            },
+            "value_type": "string"
+        }
+    ],
+    "ColorTemperature": [
+        {
+            "name": "colorTemperature",
+            "restrictions": {
+                "maximum": 6500,
+                "minimum": 2000
+            },
+            "value_type": "number"
+        }
+    ],
+    "Configuration": [],
+    "Consumable": [
+        {
+            "name": "consumableStatus",
+            "restrictions": {
+                "enum": [
+                    "good",
+                    "replace",
+                    "maintenance_required",
+                    "missing"
+                ]
+            },
+            "value_type": "string"
+        }
+    ],
+    "ContactSensor": [
+        {
+            "name": "contact",
+            "restrictions": {
+                "enum": [
+                    "closed",
+                    "open"
+                ]
+            },
+            "value_type": "string"
+        }
+    ],
+    "CurrentMeter": [
+        {
+            "name": "amperage",
+            "value_type": "number"
+        }
+    ],
+    "DoorControl": [
+        {
+            "name": "door",
+            "restrictions": {
+                "enum": [
+                    "open",
+                    "closed",
+                    "opening",
+                    "closing",
+                    "unknown"
+                ]
+            },
+            "value_type": "string"
+        }
+    ],
+    "DoubleTapableButton": [
+        {
+            "name": "doubleTapped",
+            "value_type": "number"
+        },
+        {
+            "name": "numberOfButtons",
+            "value_type": "number"
+        }
+    ],
+    "EnergyMeter": [
+        {
+            "name": "energy",
+            "value_type": "number"
+        }
+    ],
+    "EstimatedTimeOfArrival": [
+        {
+            "name": "eta",
+            "value_type": "string"
+        }
+    ],
+    "FanControl": [
+        {
+            "name": "speed",
+            "restrictions": {
+                "enum": [
+                    "off",
+                    "low",
+                    "medium-low",
+                    "medium",
+                    "medium-high",
+                    "high",
+                    "on",
+                    "auto"
+                ]
+            },
+            "value_type": "string"
+        }
+    ],
+    "FilterStatus": [
+        {
+            "name": "filterStatus",
+            "restrictions": {
+                "enum": [
+                    "normal",
+                    "replace"
+                ]
+            },
+            "value_type": "string"
+        }
+    ],
+    "Flash": [],
     "GarageDoorControl": [
         {
             "name": "door",
-            "value_type": "string",
             "restrictions": {
                 "enum": [
                     "unknown",
@@ -87,7 +277,766 @@
                     "opening",
                     "open"
                 ]
-            }
+            },
+            "value_type": "string"
+        }
+    ],
+    "GasDetector": [
+        {
+            "name": "naturalGas",
+            "restrictions": {
+                "enum": [
+                    "clear",
+                    "detected",
+                    "tested"
+                ]
+            },
+            "value_type": "string"
+        }
+    ],
+    "HealthCheck": [
+        {
+            "name": "checkInterval",
+            "value_type": "number"
+        },
+        {
+            "name": "healthStatus",
+            "restrictions": {
+                "enum": [
+                    "online",
+                    "offline"
+                ]
+            },
+            "value_type": "string"
+        }
+    ],
+    "HoldableButton": [
+        {
+            "name": "held",
+            "value_type": "number"
+        },
+        {
+            "name": "numberOfButtons",
+            "value_type": "number"
+        }
+    ],
+    "IlluminanceMeasurement": [
+        {
+            "name": "illuminance",
+            "value_type": "number"
+        }
+    ],
+    "ImageCapture": [
+        {
+            "name": "image",
+            "value_type": "string"
+        }
+    ],
+    "Indicator": [
+        {
+            "name": "indicatorStatus",
+            "restrictions": {
+                "enum": [
+                    "when off",
+                    "when on",
+                    "never"
+                ]
+            },
+            "value_type": "string"
+        }
+    ],
+    "Initialize": [],
+    "Light": [
+        {
+            "name": "switch",
+            "restrictions": {
+                "enum": [
+                    "on",
+                    "off"
+                ]
+            },
+            "value_type": "string"
+        }
+    ],
+    "LightEffects": [
+        {
+            "name": "effectName",
+            "value_type": "string"
+        },
+        {
+            "name": "effectNumber",
+            "value_type": "number"
+        }
+    ],
+    "LiquidFlowRate": [
+        {
+            "name": "rate",
+            "value_type": "number"
+        }
+    ],
+    "LocationMode": [
+        {
+            "name": "mode",
+            "value_type": "string"
+        }
+    ],
+    "Lock": [
+        {
+            "name": "lock",
+            "restrictions": {
+                "enum": [
+                    "locked",
+                    "unlocked",
+                    "unlocked with timeout",
+                    "unknown"
+                ]
+            },
+            "value_type": "string"
+        }
+    ],
+    "LockCodes": [
+        {
+            "name": "codeChanged",
+            "value_type": "string"
+        },
+        {
+            "name": "codeLength",
+            "value_type": "number"
+        },
+        {
+            "name": "lockCodes",
+            "value_type": "string"
+        },
+        {
+            "name": "maxCodes",
+            "value_type": "number"
+        }
+    ],
+    "MediaController": [
+        {
+            "name": "activities",
+            "value_type": "string"
+        },
+        {
+            "name": "currentActivity",
+            "value_type": "string"
+        }
+    ],
+    "MediaInputSource": [
+        {
+            "name": "inputSource",
+            "value_type": "string"
+        }
+    ],
+    "MediaTransport": [
+        {
+            "name": "transportStatus",
+            "restrictions": {
+                "enum": [
+                    "playing",
+                    "paused",
+                    "stopped"
+                ]
+            },
+            "value_type": "string"
+        }
+    ],
+    "Momentary": [],
+    "MotionSensor": [
+        {
+            "name": "motion",
+            "restrictions": {
+                "enum": [
+                    "active",
+                    "inactive"
+                ]
+            },
+            "special_info": "'active' indicates current motion, 'inactive' indicates no motion",
+            "value_type": "string"
+        }
+    ],
+    "MusicPlayer": [
+        {
+            "name": "status",
+            "restrictions": {
+                "enum": [
+                    "playing",
+                    "paused",
+                    "stopped"
+                ]
+            },
+            "value_type": "string"
+        },
+        {
+            "name": "level",
+            "restrictions": {
+                "maximum": 100,
+                "minimum": 0
+            },
+            "value_type": "number"
+        },
+        {
+            "name": "trackDescription",
+            "value_type": "string"
+        },
+        {
+            "name": "trackData",
+            "value_type": "string"
+        },
+        {
+            "name": "mute",
+            "restrictions": {
+                "enum": [
+                    "muted",
+                    "unmuted"
+                ]
+            },
+            "value_type": "string"
+        }
+    ],
+    "Notification": [],
+    "Outlet": [
+        {
+            "name": "switch",
+            "restrictions": {
+                "enum": [
+                    "on",
+                    "off"
+                ]
+            },
+            "value_type": "string"
+        }
+    ],
+    "Polling": [],
+    "PowerMeter": [
+        {
+            "name": "power",
+            "value_type": "number"
+        }
+    ],
+    "PowerSource": [
+        {
+            "name": "powerSource",
+            "restrictions": {
+                "enum": [
+                    "battery",
+                    "dc",
+                    "mains",
+                    "unknown"
+                ]
+            },
+            "value_type": "string"
+        }
+    ],
+    "PresenceSensor": [
+        {
+            "name": "presence",
+            "restrictions": {
+                "enum": [
+                    "present",
+                    "not present"
+                ]
+            },
+            "value_type": "string"
+        }
+    ],
+    "PressureMeasurement": [
+        {
+            "name": "pressure",
+            "value_type": "number"
+        }
+    ],
+    "PushableButton": [
+        {
+            "name": "pushed",
+            "value_type": "number"
+        },
+        {
+            "name": "numberOfButtons",
+            "value_type": "number"
+        }
+    ],
+    "Refresh": [],
+    "RelativeHumidityMeasurement": [
+        {
+            "name": "humidity",
+            "restrictions": {
+                "maximum": 100,
+                "minimum": 0
+            },
+            "value_type": "number"
+        }
+    ],
+    "RelaySwitch": [
+        {
+            "name": "switch",
+            "restrictions": {
+                "enum": [
+                    "on",
+                    "off"
+                ]
+            },
+            "value_type": "string"
+        }
+    ],
+    "ReleasableButton": [
+        {
+            "name": "released",
+            "value_type": "number"
+        },
+        {
+            "name": "numberOfButtons",
+            "value_type": "number"
+        }
+    ],
+    "SamsungTV": [
+        {
+            "name": "switch",
+            "restrictions": {
+                "enum": [
+                    "on",
+                    "off"
+                ]
+            },
+            "value_type": "string"
+        },
+        {
+            "name": "volume",
+            "restrictions": {
+                "maximum": 100,
+                "minimum": 0
+            },
+            "value_type": "number"
+        },
+        {
+            "name": "mute",
+            "restrictions": {
+                "enum": [
+                    "muted",
+                    "unmuted"
+                ]
+            },
+            "value_type": "string"
+        }
+    ],
+    "SecurityKeypad": [
+        {
+            "name": "securityKeypad",
+            "value_type": "string"
+        }
+    ],
+    "Sensor": [],
+    "ShockSensor": [
+        {
+            "name": "shock",
+            "restrictions": {
+                "enum": [
+                    "clear",
+                    "detected"
+                ]
+            },
+            "value_type": "string"
+        }
+    ],
+    "SignalStrength": [
+        {
+            "name": "lqi",
+            "value_type": "number"
+        },
+        {
+            "name": "rssi",
+            "value_type": "number"
+        }
+    ],
+    "SleepSensor": [
+        {
+            "name": "sleeping",
+            "restrictions": {
+                "enum": [
+                    "sleeping",
+                    "not sleeping"
+                ]
+            },
+            "value_type": "string"
+        }
+    ],
+    "SmokeDetector": [
+        {
+            "name": "smoke",
+            "restrictions": {
+                "enum": [
+                    "clear",
+                    "detected",
+                    "tested"
+                ]
+            },
+            "value_type": "string"
+        }
+    ],
+    "SoundPressureLevel": [
+        {
+            "name": "soundPressureLevel",
+            "value_type": "number"
+        }
+    ],
+    "SoundSensor": [
+        {
+            "name": "sound",
+            "restrictions": {
+                "enum": [
+                    "detected",
+                    "not detected"
+                ]
+            },
+            "value_type": "string"
+        }
+    ],
+    "SpeechRecognition": [
+        {
+            "name": "phraseSpoken",
+            "value_type": "string"
+        }
+    ],
+    "SpeechSynthesis": [],
+    "StepSensor": [
+        {
+            "name": "goal",
+            "value_type": "number"
+        },
+        {
+            "name": "steps",
+            "value_type": "number"
+        }
+    ],
+    "Switch": [
+        {
+            "name": "switch",
+            "restrictions": {
+                "enum": [
+                    "on",
+                    "off"
+                ]
+            },
+            "value_type": "string"
+        }
+    ],
+    "SwitchLevel": [
+        {
+            "name": "level",
+            "restrictions": {
+                "maximum": 100,
+                "minimum": 0
+            },
+            "special_info": "A value above 0 indicates that the 'switch' attribute is 'on'",
+            "value_type": "integer"
+        }
+    ],
+    "TV": [
+        {
+            "name": "switch",
+            "restrictions": {
+                "enum": [
+                    "on",
+                    "off"
+                ]
+            },
+            "value_type": "string"
+        },
+        {
+            "name": "channel",
+            "value_type": "string"
+        },
+        {
+            "name": "volume",
+            "restrictions": {
+                "maximum": 100,
+                "minimum": 0
+            },
+            "value_type": "number"
+        }
+    ],
+    "TamperAlert": [
+        {
+            "name": "tamper",
+            "restrictions": {
+                "enum": [
+                    "clear",
+                    "detected"
+                ]
+            },
+            "value_type": "string"
+        }
+    ],
+    "Telnet": [],
+    "TemperatureMeasurement": [
+        {
+            "name": "temperature",
+            "value_type": "number"
+        }
+    ],
+    "TestCapability": [
+        {
+            "name": "test",
+            "value_type": "string"
+        }
+    ],
+    "Thermostat": [
+        {
+            "name": "temperature",
+            "value_type": "number"
+        },
+        {
+            "name": "heatingSetpoint",
+            "value_type": "number"
+        },
+        {
+            "name": "coolingSetpoint",
+            "value_type": "number"
+        },
+        {
+            "name": "thermostatSetpoint",
+            "value_type": "number"
+        },
+        {
+            "name": "thermostatMode",
+            "restrictions": {
+                "enum": [
+                    "off",
+                    "heat",
+                    "cool",
+                    "auto",
+                    "emergency heat"
+                ]
+            },
+            "value_type": "string"
+        },
+        {
+            "name": "thermostatFanMode",
+            "restrictions": {
+                "enum": [
+                    "auto",
+                    "circulate",
+                    "on"
+                ]
+            },
+            "value_type": "string"
+        },
+        {
+            "name": "thermostatOperatingState",
+            "restrictions": {
+                "enum": [
+                    "idle",
+                    "heating",
+                    "cooling",
+                    "pending heat",
+                    "pending cool",
+                    "vent economizer",
+                    "fan only"
+                ]
+            },
+            "value_type": "string"
+        }
+    ],
+    "ThermostatCoolingSetpoint": [
+        {
+            "name": "coolingSetpoint",
+            "value_type": "number"
+        }
+    ],
+    "ThermostatFanMode": [
+        {
+            "name": "thermostatFanMode",
+            "restrictions": {
+                "enum": [
+                    "auto",
+                    "circulate",
+                    "on"
+                ]
+            },
+            "value_type": "string"
+        }
+    ],
+    "ThermostatHeatingSetpoint": [
+        {
+            "name": "heatingSetpoint",
+            "value_type": "number"
+        }
+    ],
+    "ThermostatMode": [
+        {
+            "name": "thermostatMode",
+            "restrictions": {
+                "enum": [
+                    "off",
+                    "heat",
+                    "cool",
+                    "auto",
+                    "emergency heat"
+                ]
+            },
+            "value_type": "string"
+        }
+    ],
+    "ThermostatOperatingState": [
+        {
+            "name": "thermostatOperatingState",
+            "restrictions": {
+                "enum": [
+                    "idle",
+                    "heating",
+                    "cooling",
+                    "pending heat",
+                    "pending cool",
+                    "vent economizer",
+                    "fan only"
+                ]
+            },
+            "value_type": "string"
+        }
+    ],
+    "ThermostatSchedule": [
+        {
+            "name": "schedule",
+            "value_type": "string"
+        }
+    ],
+    "ThermostatSetpoint": [
+        {
+            "name": "thermostatSetpoint",
+            "value_type": "number"
+        }
+    ],
+    "ThreeAxis": [
+        {
+            "name": "threeAxis",
+            "value_type": "string"
+        }
+    ],
+    "TimedSession": [
+        {
+            "name": "sessionStatus",
+            "restrictions": {
+                "enum": [
+                    "stopped",
+                    "running",
+                    "paused"
+                ]
+            },
+            "value_type": "string"
+        }
+    ],
+    "Tone": [],
+    "TouchSensor": [
+        {
+            "name": "touch",
+            "restrictions": {
+                "enum": [
+                    "touched"
+                ]
+            },
+            "value_type": "string"
+        }
+    ],
+    "UltravioletIndex": [
+        {
+            "name": "ultravioletIndex",
+            "value_type": "number"
+        }
+    ],
+    "Valve": [
+        {
+            "name": "valve",
+            "restrictions": {
+                "enum": [
+                    "open",
+                    "closed"
+                ]
+            },
+            "value_type": "string"
+        }
+    ],
+    "Variable": [
+        {
+            "name": "variable",
+            "value_type": "string"
+        }
+    ],
+    "VideoCamera": [
+        {
+            "name": "camera",
+            "value_type": "string"
+        }
+    ],
+    "VideoCapture": [
+        {
+            "name": "clip",
+            "value_type": "string"
+        }
+    ],
+    "VoltageMeasurement": [
+        {
+            "name": "voltage",
+            "value_type": "number"
+        }
+    ],
+    "WaterSensor": [
+        {
+            "name": "water",
+            "restrictions": {
+                "enum": [
+                    "dry",
+                    "wet"
+                ]
+            },
+            "value_type": "string"
+        }
+    ],
+    "WindowBlind": [
+        {
+            "name": "windowBlind",
+            "restrictions": {
+                "enum": [
+                    "open",
+                    "closed",
+                    "opening",
+                    "closing",
+                    "partially open",
+                    "unknown"
+                ]
+            },
+            "value_type": "string"
+        }
+    ],
+    "WindowShade": [
+        {
+            "name": "windowShade",
+            "restrictions": {
+                "enum": [
+                    "open",
+                    "closed",
+                    "opening",
+                    "closing",
+                    "partially open",
+                    "unknown"
+                ]
+            },
+            "value_type": "string"
+        }
+    ],
+    "ZwMultichannel": [
+        {
+            "name": "epEvent",
+            "value_type": "string"
+        }
+    ],
+    "pHMeasurement": [
+        {
+            "name": "pH",
+            "restrictions": {
+                "maximum": 14,
+                "minimum": 0
+            },
+            "value_type": "number"
         }
     ]
 }

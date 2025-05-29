@@ -1,4 +1,518 @@
 {
+    "AccelerationSensor": [],
+    "Actuator": [],
+    "AirQuality": [],
+    "Alarm": [
+        {
+            "name": "off"
+        },
+        {
+            "name": "strobe"
+        },
+        {
+            "name": "siren"
+        },
+        {
+            "name": "both"
+        }
+    ],
+    "AudioNotification": [
+        {
+            "arguments": [
+                {
+                    "name": "soundNumber",
+                    "type": "number"
+                }
+            ],
+            "name": "playSound"
+        }
+    ],
+    "AudioVolume": [
+        {
+            "arguments": [
+                {
+                    "name": "volume",
+                    "type": "number"
+                }
+            ],
+            "name": "setVolume"
+        },
+        {
+            "name": "volumeUp"
+        },
+        {
+            "name": "volumeDown"
+        },
+        {
+            "name": "mute"
+        },
+        {
+            "name": "unmute"
+        }
+    ],
+    "Battery": [],
+    "Beacon": [],
+    "Bulb": [
+        {
+            "name": "on"
+        },
+        {
+            "name": "off"
+        }
+    ],
+    "CarbonDioxideMeasurement": [],
+    "CarbonMonoxideDetector": [],
+    "ChangeLevel": [
+        {
+            "arguments": [
+                {
+                    "name": "direction",
+                    "type": "string"
+                }
+            ],
+            "name": "startLevelChange"
+        },
+        {
+            "name": "stopLevelChange"
+        }
+    ],
+    "Chime": [
+        {
+            "arguments": [
+                {
+                    "name": "soundNumber",
+                    "type": "number"
+                }
+            ],
+            "name": "playSound"
+        }
+    ],
+    "ColorControl": [
+        {
+            "arguments": [
+                {
+                    "name": "colorMap",
+                    "type": "object"
+                }
+            ],
+            "name": "setColor"
+        },
+        {
+            "arguments": [
+                {
+                    "name": "hue",
+                    "type": "number"
+                }
+            ],
+            "name": "setHue"
+        },
+        {
+            "arguments": [
+                {
+                    "name": "saturation",
+                    "type": "number"
+                }
+            ],
+            "name": "setSaturation"
+        }
+    ],
+    "ColorMode": [
+        {
+            "arguments": [
+                {
+                    "name": "colorMode",
+                    "type": "string"
+                }
+            ],
+            "name": "setColorMode"
+        }
+    ],
+    "ColorTemperature": [
+        {
+            "arguments": [
+                {
+                    "name": "colorTemperature",
+                    "type": "number"
+                }
+            ],
+            "name": "setColorTemperature"
+        }
+    ],
+    "Configuration": [
+        {
+            "name": "configure"
+        }
+    ],
+    "Consumable": [
+        {
+            "arguments": [
+                {
+                    "name": "status",
+                    "type": "string"
+                }
+            ],
+            "name": "setConsumableStatus"
+        }
+    ],
+    "ContactSensor": [],
+    "CurrentMeter": [],
+    "DoorControl": [
+        {
+            "name": "open"
+        },
+        {
+            "name": "close"
+        }
+    ],
+    "DoubleTapableButton": [],
+    "EnergyMeter": [],
+    "EstimatedTimeOfArrival": [],
+    "FanControl": [
+        {
+            "arguments": [
+                {
+                    "name": "speed",
+                    "type": "string"
+                }
+            ],
+            "name": "setSpeed"
+        }
+    ],
+    "FilterStatus": [],
+    "Flash": [
+        {
+            "name": "flash"
+        }
+    ],
+    "GarageDoorControl": [
+        {
+            "name": "open"
+        },
+        {
+            "name": "close"
+        }
+    ],
+    "GasDetector": [],
+    "HealthCheck": [
+        {
+            "name": "ping"
+        }
+    ],
+    "HoldableButton": [],
+    "IlluminanceMeasurement": [],
+    "ImageCapture": [
+        {
+            "name": "take"
+        }
+    ],
+    "Indicator": [
+        {
+            "name": "indicatorNever"
+        },
+        {
+            "name": "indicatorWhenOn"
+        },
+        {
+            "name": "indicatorWhenOff"
+        }
+    ],
+    "Initialize": [
+        {
+            "name": "initialize"
+        }
+    ],
+    "Light": [
+        {
+            "name": "on"
+        },
+        {
+            "name": "off"
+        }
+    ],
+    "LightEffects": [
+        {
+            "arguments": [
+                {
+                    "name": "effectNumber",
+                    "type": "number"
+                }
+            ],
+            "name": "setEffect"
+        },
+        {
+            "name": "setNextEffect"
+        },
+        {
+            "name": "setPreviousEffect"
+        }
+    ],
+    "LiquidFlowRate": [],
+    "LocationMode": [
+        {
+            "arguments": [
+                {
+                    "name": "mode",
+                    "type": "string"
+                }
+            ],
+            "name": "setLocationMode"
+        }
+    ],
+    "Lock": [
+        {
+            "name": "lock"
+        },
+        {
+            "name": "unlock"
+        }
+    ],
+    "LockCodes": [
+        {
+            "arguments": [
+                {
+                    "name": "codeNumber",
+                    "type": "number"
+                },
+                {
+                    "name": "code",
+                    "type": "string"
+                },
+                {
+                    "name": "name",
+                    "type": "string"
+                }
+            ],
+            "name": "setCode"
+        },
+        {
+            "arguments": [
+                {
+                    "name": "codeNumber",
+                    "type": "number"
+                }
+            ],
+            "name": "deleteCode"
+        },
+        {
+            "name": "getCodes"
+        },
+        {
+            "name": "reloadAllCodes"
+        }
+    ],
+    "MediaController": [
+        {
+            "arguments": [
+                {
+                    "name": "activity",
+                    "type": "string"
+                }
+            ],
+            "name": "startActivity"
+        },
+        {
+            "name": "getCurrentActivity"
+        },
+        {
+            "name": "getAllActivities"
+        }
+    ],
+    "MediaInputSource": [
+        {
+            "arguments": [
+                {
+                    "name": "inputSource",
+                    "type": "string"
+                }
+            ],
+            "name": "setInputSource"
+        }
+    ],
+    "MediaTransport": [
+        {
+            "name": "play"
+        },
+        {
+            "name": "pause"
+        },
+        {
+            "name": "stop"
+        },
+        {
+            "name": "nextTrack"
+        },
+        {
+            "name": "previousTrack"
+        }
+    ],
+    "Momentary": [
+        {
+            "name": "push"
+        }
+    ],
+    "MotionSensor": [],
+    "MusicPlayer": [
+        {
+            "name": "play"
+        },
+        {
+            "name": "pause"
+        },
+        {
+            "name": "stop"
+        },
+        {
+            "name": "nextTrack"
+        },
+        {
+            "name": "previousTrack"
+        },
+        {
+            "arguments": [
+                {
+                    "name": "level",
+                    "type": "number"
+                }
+            ],
+            "name": "setLevel"
+        },
+        {
+            "arguments": [
+                {
+                    "name": "trackUri",
+                    "type": "string"
+                }
+            ],
+            "name": "playTrack"
+        },
+        {
+            "arguments": [
+                {
+                    "name": "trackUri",
+                    "type": "string"
+                }
+            ],
+            "name": "setTrack"
+        },
+        {
+            "arguments": [
+                {
+                    "name": "trackUri",
+                    "type": "string"
+                }
+            ],
+            "name": "resumeTrack"
+        },
+        {
+            "arguments": [
+                {
+                    "name": "trackUri",
+                    "type": "string"
+                }
+            ],
+            "name": "restoreTrack"
+        },
+        {
+            "name": "mute"
+        },
+        {
+            "name": "unmute"
+        }
+    ],
+    "Notification": [
+        {
+            "arguments": [
+                {
+                    "name": "text",
+                    "type": "string"
+                }
+            ],
+            "name": "deviceNotification"
+        }
+    ],
+    "Outlet": [
+        {
+            "name": "on"
+        },
+        {
+            "name": "off"
+        }
+    ],
+    "Polling": [
+        {
+            "name": "poll"
+        }
+    ],
+    "PowerMeter": [],
+    "PowerSource": [],
+    "PresenceSensor": [],
+    "PressureMeasurement": [],
+    "PushableButton": [],
+    "Refresh": [
+        {
+            "name": "refresh"
+        }
+    ],
+    "RelativeHumidityMeasurement": [],
+    "RelaySwitch": [
+        {
+            "name": "on"
+        },
+        {
+            "name": "off"
+        }
+    ],
+    "ReleasableButton": [],
+    "SamsungTV": [
+        {
+            "name": "on"
+        },
+        {
+            "name": "off"
+        },
+        {
+            "arguments": [
+                {
+                    "name": "volume",
+                    "type": "number"
+                }
+            ],
+            "name": "setVolume"
+        },
+        {
+            "name": "volumeUp"
+        },
+        {
+            "name": "volumeDown"
+        },
+        {
+            "name": "mute"
+        },
+        {
+            "name": "unmute"
+        }
+    ],
+    "SecurityKeypad": [],
+    "Sensor": [],
+    "ShockSensor": [],
+    "SignalStrength": [],
+    "SleepSensor": [],
+    "SmokeDetector": [],
+    "SoundPressureLevel": [],
+    "SoundSensor": [],
+    "SpeechRecognition": [],
+    "SpeechSynthesis": [
+        {
+            "arguments": [
+                {
+                    "name": "text",
+                    "type": "string"
+                }
+            ],
+            "name": "speak"
+        }
+    ],
+    "StepSensor": [],
     "Switch": [
         {
             "name": "on"
@@ -9,31 +523,319 @@
     ],
     "SwitchLevel": [
         {
-            "name": "setLevel",
             "arguments": [
                 {
                     "name": "level",
-                    "value_type": "integer",
+                    "required": true,
                     "restrictions": {
-                        "minimum": 0,
-                        "maximum": 100
+                        "maximum": 100,
+                        "minimum": 0
                     },
-                    "required": true
+                    "value_type": "integer"
                 }
-            ]
+            ],
+            "name": "setLevel"
         }
     ],
-    "MotionSensor": [],
-    "ContactSensor": [],
-    "PresenceSensor": [],
+    "TV": [
+        {
+            "name": "on"
+        },
+        {
+            "name": "off"
+        },
+        {
+            "name": "channelUp"
+        },
+        {
+            "name": "channelDown"
+        },
+        {
+            "arguments": [
+                {
+                    "name": "channel",
+                    "type": "string"
+                }
+            ],
+            "name": "setChannel"
+        },
+        {
+            "name": "volumeUp"
+        },
+        {
+            "name": "volumeDown"
+        },
+        {
+            "arguments": [
+                {
+                    "name": "volume",
+                    "type": "number"
+                }
+            ],
+            "name": "setVolume"
+        }
+    ],
+    "TamperAlert": [],
+    "Telnet": [
+        {
+            "arguments": [
+                {
+                    "name": "message",
+                    "type": "string"
+                }
+            ],
+            "name": "sendMsg"
+        }
+    ],
     "TemperatureMeasurement": [],
-    "RelativeHumidityMeasurement": [],
-    "GarageDoorControl": [
+    "TestCapability": [
+        {
+            "name": "test"
+        }
+    ],
+    "Thermostat": [
+        {
+            "arguments": [
+                {
+                    "name": "temperature",
+                    "type": "number"
+                }
+            ],
+            "name": "setHeatingSetpoint"
+        },
+        {
+            "arguments": [
+                {
+                    "name": "temperature",
+                    "type": "number"
+                }
+            ],
+            "name": "setCoolingSetpoint"
+        },
+        {
+            "arguments": [
+                {
+                    "name": "thermostatMode",
+                    "type": "string"
+                }
+            ],
+            "name": "setThermostatMode"
+        },
+        {
+            "arguments": [
+                {
+                    "name": "fanMode",
+                    "type": "string"
+                }
+            ],
+            "name": "setThermostatFanMode"
+        },
+        {
+            "name": "heat"
+        },
+        {
+            "name": "cool"
+        },
+        {
+            "name": "auto"
+        },
+        {
+            "name": "off"
+        },
+        {
+            "name": "emergencyHeat"
+        },
+        {
+            "name": "fanAuto"
+        },
+        {
+            "name": "fanCirculate"
+        },
+        {
+            "name": "fanOn"
+        }
+    ],
+    "ThermostatCoolingSetpoint": [
+        {
+            "arguments": [
+                {
+                    "name": "temperature",
+                    "type": "number"
+                }
+            ],
+            "name": "setCoolingSetpoint"
+        }
+    ],
+    "ThermostatFanMode": [
+        {
+            "arguments": [
+                {
+                    "name": "fanMode",
+                    "type": "string"
+                }
+            ],
+            "name": "setThermostatFanMode"
+        },
+        {
+            "name": "fanAuto"
+        },
+        {
+            "name": "fanCirculate"
+        },
+        {
+            "name": "fanOn"
+        }
+    ],
+    "ThermostatHeatingSetpoint": [
+        {
+            "arguments": [
+                {
+                    "name": "temperature",
+                    "type": "number"
+                }
+            ],
+            "name": "setHeatingSetpoint"
+        }
+    ],
+    "ThermostatMode": [
+        {
+            "arguments": [
+                {
+                    "name": "thermostatMode",
+                    "type": "string"
+                }
+            ],
+            "name": "setThermostatMode"
+        },
+        {
+            "name": "heat"
+        },
+        {
+            "name": "cool"
+        },
+        {
+            "name": "auto"
+        },
+        {
+            "name": "off"
+        },
+        {
+            "name": "emergencyHeat"
+        }
+    ],
+    "ThermostatOperatingState": [],
+    "ThermostatSchedule": [],
+    "ThermostatSetpoint": [
+        {
+            "arguments": [
+                {
+                    "name": "temperature",
+                    "type": "number"
+                }
+            ],
+            "name": "setThermostatSetpoint"
+        }
+    ],
+    "ThreeAxis": [],
+    "TimedSession": [
+        {
+            "name": "start"
+        },
+        {
+            "name": "stop"
+        },
+        {
+            "name": "pause"
+        },
+        {
+            "name": "cancel"
+        }
+    ],
+    "Tone": [
+        {
+            "name": "beep"
+        }
+    ],
+    "TouchSensor": [],
+    "UltravioletIndex": [],
+    "Valve": [
         {
             "name": "open"
         },
         {
             "name": "close"
         }
-    ]
+    ],
+    "Variable": [
+        {
+            "arguments": [
+                {
+                    "name": "value",
+                    "type": "string"
+                }
+            ],
+            "name": "setVariable"
+        }
+    ],
+    "VideoCamera": [
+        {
+            "name": "on"
+        },
+        {
+            "name": "off"
+        },
+        {
+            "name": "take"
+        }
+    ],
+    "VideoCapture": [
+        {
+            "name": "capture"
+        }
+    ],
+    "VoltageMeasurement": [],
+    "WaterSensor": [],
+    "WindowBlind": [
+        {
+            "name": "open"
+        },
+        {
+            "name": "close"
+        },
+        {
+            "arguments": [
+                {
+                    "name": "position",
+                    "type": "number"
+                }
+            ],
+            "name": "setPosition"
+        }
+    ],
+    "WindowShade": [
+        {
+            "name": "open"
+        },
+        {
+            "name": "close"
+        },
+        {
+            "arguments": [
+                {
+                    "name": "position",
+                    "type": "number"
+                }
+            ],
+            "name": "setPosition"
+        }
+    ],
+    "ZwMultichannel": [
+        {
+            "name": "enableEpEvents"
+        },
+        {
+            "name": "disableEpEvents"
+        }
+    ],
+    "pHMeasurement": []
 }

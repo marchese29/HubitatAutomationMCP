@@ -12,14 +12,107 @@ from util import env_var
 class DeviceCapability(str, Enum):
     """Enum of supported Hubitat device capabilities."""
 
+    ACCELERATION_SENSOR = "AccelerationSensor"
+    ACTUATOR = "Actuator"
+    AIR_QUALITY = "AirQuality"
+    ALARM = "Alarm"
+    AUDIO_NOTIFICATION = "AudioNotification"
+    AUDIO_VOLUME = "AudioVolume"
+    BATTERY = "Battery"
+    BEACON = "Beacon"
+    BULB = "Bulb"
+    CARBON_DIOXIDE_MEASUREMENT = "CarbonDioxideMeasurement"
+    CARBON_MONOXIDE_DETECTOR = "CarbonMonoxideDetector"
+    CHANGE_LEVEL = "ChangeLevel"
+    CHIME = "Chime"
+    COLOR_CONTROL = "ColorControl"
+    COLOR_MODE = "ColorMode"
+    COLOR_TEMPERATURE = "ColorTemperature"
+    CONFIGURATION = "Configuration"
+    CONSUMABLE = "Consumable"
+    CONTACT_SENSOR = "ContactSensor"
+    CURRENT_METER = "CurrentMeter"
+    DOOR_CONTROL = "DoorControl"
+    DOUBLE_TAPABLE_BUTTON = "DoubleTapableButton"
+    ENERGY_METER = "EnergyMeter"
+    ESTIMATED_TIME_OF_ARRIVAL = "EstimatedTimeOfArrival"
+    FAN_CONTROL = "FanControl"
+    FILTER_STATUS = "FilterStatus"
+    FLASH = "Flash"
+    GARAGE_DOOR_CONTROL = "GarageDoorControl"
+    GAS_DETECTOR = "GasDetector"
+    HEALTH_CHECK = "HealthCheck"
+    HOLDABLE_BUTTON = "HoldableButton"
+    ILLUMINANCE_MEASUREMENT = "IlluminanceMeasurement"
+    IMAGE_CAPTURE = "ImageCapture"
+    INDICATOR = "Indicator"
+    INITIALIZE = "Initialize"
+    LIGHT = "Light"
+    LIGHT_EFFECTS = "LightEffects"
+    LIQUID_FLOW_RATE = "LiquidFlowRate"
+    LOCATION_MODE = "LocationMode"
+    LOCK = "Lock"
+    LOCK_CODES = "LockCodes"
+    MEDIA_CONTROLLER = "MediaController"
+    MEDIA_INPUT_SOURCE = "MediaInputSource"
+    MEDIA_TRANSPORT = "MediaTransport"
+    MOMENTARY = "Momentary"
+    MOTION_SENSOR = "MotionSensor"
+    MUSIC_PLAYER = "MusicPlayer"
+    NOTIFICATION = "Notification"
+    OUTLET = "Outlet"
+    PH_MEASUREMENT = "pHMeasurement"
+    POLLING = "Polling"
+    POWER_METER = "PowerMeter"
+    POWER_SOURCE = "PowerSource"
+    PRESENCE_SENSOR = "PresenceSensor"
+    PRESSURE_MEASUREMENT = "PressureMeasurement"
+    PUSHABLE_BUTTON = "PushableButton"
+    REFRESH = "Refresh"
+    RELATIVE_HUMIDITY_MEASUREMENT = "RelativeHumidityMeasurement"
+    RELAY_SWITCH = "RelaySwitch"
+    RELEASABLE_BUTTON = "ReleasableButton"
+    SAMSUNG_TV = "SamsungTV"
+    SECURITY_KEYPAD = "SecurityKeypad"
+    SENSOR = "Sensor"
+    SHOCK_SENSOR = "ShockSensor"
+    SIGNAL_STRENGTH = "SignalStrength"
+    SLEEP_SENSOR = "SleepSensor"
+    SMOKE_DETECTOR = "SmokeDetector"
+    SOUND_PRESSURE_LEVEL = "SoundPressureLevel"
+    SOUND_SENSOR = "SoundSensor"
+    SPEECH_RECOGNITION = "SpeechRecognition"
+    SPEECH_SYNTHESIS = "SpeechSynthesis"
+    STEP_SENSOR = "StepSensor"
     SWITCH = "Switch"
     SWITCH_LEVEL = "SwitchLevel"
-    MOTION_SENSOR = "MotionSensor"
-    CONTACT_SENSOR = "ContactSensor"
-    PRESENCE_SENSOR = "PresenceSensor"
+    TAMPER_ALERT = "TamperAlert"
+    TELNET = "Telnet"
     TEMPERATURE_MEASUREMENT = "TemperatureMeasurement"
-    RELATIVE_HUMIDITY_MEASUREMENT = "RelativeHumidityMeasurement"
-    GARAGE_DOOR_CONTROL = "GarageDoorControl"
+    TEST_CAPABILITY = "TestCapability"
+    THERMOSTAT = "Thermostat"
+    THERMOSTAT_COOLING_SETPOINT = "ThermostatCoolingSetpoint"
+    THERMOSTAT_FAN_MODE = "ThermostatFanMode"
+    THERMOSTAT_HEATING_SETPOINT = "ThermostatHeatingSetpoint"
+    THERMOSTAT_MODE = "ThermostatMode"
+    THERMOSTAT_OPERATING_STATE = "ThermostatOperatingState"
+    THERMOSTAT_SCHEDULE = "ThermostatSchedule"
+    THERMOSTAT_SETPOINT = "ThermostatSetpoint"
+    THREE_AXIS = "ThreeAxis"
+    TIMED_SESSION = "TimedSession"
+    TONE = "Tone"
+    TOUCH_SENSOR = "TouchSensor"
+    TV = "TV"
+    ULTRAVIOLET_INDEX = "UltravioletIndex"
+    VALVE = "Valve"
+    VARIABLE = "Variable"
+    VIDEO_CAMERA = "VideoCamera"
+    VIDEO_CAPTURE = "VideoCapture"
+    VOLTAGE_MEASUREMENT = "VoltageMeasurement"
+    WATER_SENSOR = "WaterSensor"
+    WINDOW_BLIND = "WindowBlind"
+    WINDOW_SHADE = "WindowShade"
+    ZW_MULTICHANNEL = "ZwMultichannel"
 
     @classmethod
     def allowed_capabilities(cls) -> list[str]:
@@ -162,6 +255,26 @@ class HubitatClient:
         )
         self._token = env_var("HE_ACCESS_TOKEN")
 
+    async def _make_request(self, url: str) -> httpx.Response:
+        async with httpx.AsyncClient() as client:
+            try:
+                resp = await client.get(url, params={"access_token": self._token})
+            except httpx.HTTPStatusError as error:
+                raise Exception(
+                    f"HE Client returned '{error.response.status_code}' "
+                    f"status: {error.response.text}"
+                ) from error
+            except Exception as error:
+                print(f"HE Client returned error: {error}")
+                raise
+
+        if resp.status_code != 200:
+            raise Exception(
+                f"HE Client returned '{resp.status_code}' status: {resp.text}"
+            )
+
+        return resp
+
     async def send_command(
         self, device_id: int, command: str, arguments: Optional[list[Any]] = None
     ):
@@ -176,22 +289,7 @@ class HubitatClient:
         if arguments:
             url += f"/{','.join(str(arg) for arg in arguments)}"
 
-        async with httpx.AsyncClient() as client:
-            try:
-                resp = await client.get(url, params={"access_token": self._token})
-            except httpx.HTTPStatusError as error:
-                raise Exception(
-                    f"HE Client returned '{error.response.status_code}' "
-                    f"status: {error.response.text}"
-                ) from error
-            except Exception as error:
-                print(f"HE Client returned error: {error}")
-                raise
-
-        if resp.status_code != 200:
-            raise Exception(
-                f"HE Client returned '{resp.status_code}' status: {resp.text}"
-            )
+        await self._make_request(url)
 
     async def get_attribute(self, device_id: int, attribute: str) -> Any:
         """Get the current value of a device attribute.
@@ -204,23 +302,7 @@ class HubitatClient:
             The current value of the attribute, or None if not found
         """
         url = f"{self._address}/devices/{device_id}"
-
-        async with httpx.AsyncClient() as client:
-            try:
-                resp = await client.get(url, params={"access_token": self._token})
-            except httpx.HTTPStatusError as error:
-                raise Exception(
-                    f"HE Client returned '{error.response.status_code}' "
-                    f"status: {error.response.text}"
-                ) from error
-            except Exception as error:
-                print(f"HE Client returned error: {error}")
-                raise
-
-        if resp.status_code != 200:
-            raise Exception(
-                f"HE Client returned '{resp.status_code}' status: {resp.text}"
-            )
+        resp = await self._make_request(url)
 
         attributes: list[dict[str, Any]] = resp.json()["attributes"]
         for attr in attributes:
