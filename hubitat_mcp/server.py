@@ -11,7 +11,7 @@ from .data_loader import CapabilityDataLoader
 mcp = FastMCP("Hubitat Capabilities")
 
 
-@mcp.resource("hubitat://capabilities")
+@mcp.resource("hubitat://capabilities", mime_type="text/json")
 async def get_all_capabilities() -> str:
     """Get a list of all available Hubitat capabilities.
 
@@ -25,7 +25,9 @@ async def get_all_capabilities() -> str:
     )
 
 
-@mcp.resource("hubitat://capabilities/{capability_name}/attributes")
+@mcp.resource(
+    "hubitat://capabilities/{capability_name}/attributes", mime_type="text/json"
+)
 async def get_capability_attributes(capability_name: str) -> str:
     """Get attributes for a specific capability.
 
@@ -67,7 +69,9 @@ async def get_capability_attributes(capability_name: str) -> str:
     )
 
 
-@mcp.resource("hubitat://capabilities/{capability_name}/commands")
+@mcp.resource(
+    "hubitat://capabilities/{capability_name}/commands", mime_type="text/json"
+)
 async def get_capability_commands(capability_name: str) -> str:
     """Get commands for a specific capability.
 
