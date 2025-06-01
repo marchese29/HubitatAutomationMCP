@@ -12,6 +12,9 @@ wheels/
 # Dotenv file
 .env
 
+# Private configuration/layout files
+rooms.json
+
 # Roo Things
 .roomodes
 .roo/
