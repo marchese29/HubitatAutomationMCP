@@ -9,6 +9,9 @@ wheels/
 # Virtual environments
 .venv
 
+# Dotenv file
+.env
+
 # Roo Things
 .roomodes
 .roo/

@@ -1,33 +1,175 @@
-import asyncio as aio
+"""FastMCP server implementation for Hubitat capabilities."""
 
-from contextlib import asynccontextmanager
-from fastapi import FastAPI
+import asyncio
+from typing import Any
 
+from fastmcp import FastMCP
 
-@asynccontextmanager
-async def lifespan(_: FastAPI):
-    from hubitat_mcp.server import mcp
-
-    aio.create_task(mcp.run_async("stdio"))
-
-    yield
-
-
-app = FastAPI(lifespan=lifespan)
-
-
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
+from hubitat import HubitatClient
+from models.capabilities import DeviceAttribute, DeviceCommand
+from models.devices import (
+    CommandExecutionResult,
+    CommandRequest,
+    DeviceStateInfo,
+    HubitatDeviceInfo,
+)
+from util import CapabilityDataLoader
 
 
-@app.post("/he_event")
-def handle_device_event():
-    # TODO: Implement Hubitat event handling
-    pass
+# Initialize FastMCP server
+mcp = FastMCP("Hubitat Capabilities")
+
+
+@mcp.resource("hubitat://capabilities")
+async def get_all_capabilities() -> dict[str, Any]:
+    """Get a list of all available Hubitat capabilities.
+
+    Returns:
+        JSON string containing an array of capability names
+    """
+    capabilities = CapabilityDataLoader.get_all_capability_names()
+    return {"capabilities": capabilities, "count": len(capabilities)}
+
+
+@mcp.resource("hubitat://devices")
+async def get_all_devices() -> list[HubitatDeviceInfo]:
+    """Get all devices from Hubitat without attributes and commands.
+
+    Provides device discovery by returning basic device information including
+    ID, name, label, type, capabilities, etc. but excluding current attribute
+    values and available commands (which can be looked up via capabilities).
+
+    Returns:
+        List of HubitatDeviceInfo objects with device metadata
+    """
+
+    client = HubitatClient()
+    return [
+        HubitatDeviceInfo.from_hubitat_device(device)
+        for device in await client.get_all_devices()
+    ]
+
+
+# Helper function for safe command execution
+async def _execute_command_safely(
+    client: HubitatClient, cmd: CommandRequest
+) -> CommandExecutionResult:
+    """Execute a single command with error handling."""
+
+    try:
+        await client.send_command(cmd.device_id, cmd.command, cmd.arguments)
+        return CommandExecutionResult(
+            device_id=cmd.device_id,
+            command=cmd.command,
+            arguments=cmd.arguments,
+            success=True,
+        )
+    except Exception as e:
+        return CommandExecutionResult(
+            device_id=cmd.device_id,
+            command=cmd.command,
+            arguments=cmd.arguments,
+            success=False,
+            error_message=str(e),
+        )
+
+
+@mcp.tool()
+async def get_capability_attributes(
+    capability_name: str,
+) -> list[DeviceAttribute] | dict[str, str | list[str]]:
+    """Get attributes for a specific capability.
+
+    Args:
+        capability_name: The name of the capability
+
+    Returns:
+        List of DeviceAttribute objects or error message if capability not found
+    """
+    # Get attributes for the capability
+    attributes = CapabilityDataLoader.get_capability_attributes(capability_name)
+
+    if attributes is None:
+        return {
+            "error": f"Capability '{capability_name}' not found",
+            "available_capabilities": CapabilityDataLoader.get_all_capability_names(),
+        }
+
+    # Return the list of DeviceAttribute objects directly
+    return attributes
+
+
+@mcp.tool()
+async def get_capability_commands(
+    capability_name: str,
+) -> list[DeviceCommand] | dict[str, str | list[str]]:
+    """Get commands for a specific capability.
+
+    Args:
+        capability_name: The name of the capability
+
+    Returns:
+        List of DeviceCommand objects or error message if capability not found
+    """
+    # Get commands for the capability
+    commands = CapabilityDataLoader.get_capability_commands(capability_name)
+
+    if commands is None:
+        return {
+            "error": f"Capability '{capability_name}' not found",
+            "available_capabilities": CapabilityDataLoader.get_all_capability_names(),
+        }
+
+    # Return the list of DeviceCommand objects directly
+    return commands
+
+
+@mcp.tool()
+async def get_device_states(device_ids: list[int]) -> list[DeviceStateInfo]:
+    """Get current state of specified devices.
+
+    Uses the /devices/all endpoint to fetch device information and filters
+    by the requested device IDs, returning only the current attribute values.
+
+    Args:
+        device_ids: List of device IDs to retrieve states for
+
+    Returns:
+        List of DeviceStateInfo objects with device information and current attribute values
+    """
+    client = HubitatClient()
+    all_devices = await client.get_all_devices()
+
+    # Filter devices by requested IDs and convert using class method
+    requested_devices = []
+    for device in all_devices:
+        device_id = int(device.id)  # Convert string ID to int
+        if device_id in device_ids:
+            device_info = DeviceStateInfo.from_hubitat_device(device)
+            requested_devices.append(device_info)
+
+    return requested_devices
+
+
+@mcp.tool()
+async def send_commands(commands: list[CommandRequest]) -> list[CommandExecutionResult]:
+    """Send multiple commands to devices in parallel.
+
+    Executes all commands concurrently and returns success/failure status
+    for each command. Failed commands do not stop execution of other commands.
+
+    Args:
+        commands: List of commands to execute
+
+    Returns:
+        List of CommandExecutionResult objects with results for each command
+    """
+    client = HubitatClient()
+    return await asyncio.gather(
+        *[_execute_command_safely(client, cmd) for cmd in commands],
+        return_exceptions=False,  # We handle exceptions in execute_command_safely
+    )
 
 
 if __name__ == "__main__":
-    import uvicorn
-
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    mcp.run()
