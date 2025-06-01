@@ -2,6 +2,7 @@ from typing import Any, Optional
 
 import httpx
 
+from models.devices import HubitatDeviceResponse
 from util import env_var
 
 
@@ -51,22 +52,15 @@ class HubitatClient:
 
         await self._make_request(url)
 
-    async def get_attribute(self, device_id: int, attribute: str) -> Any:
-        """Get the current value of a device attribute.
-
-        Args:
-            device_id: The ID of the device to get the attribute from
-            attribute: The name of the attribute to get
+    async def get_all_devices(self) -> list[HubitatDeviceResponse]:
+        """Get all devices from /devices/all endpoint.
 
         Returns:
-            The current value of the attribute, or None if not found
+            List of HubitatDeviceResponse objects with validated data
         """
-        url = f"{self._address}/devices/{device_id}"
+        url = f"{self._address}/devices/all"
         resp = await self._make_request(url)
 
-        attributes: list[dict[str, Any]] = resp.json()["attributes"]
-        for attr in attributes:
-            if attr["name"] == attribute:
-                return attr["currentValue"]
-
-        return None
+        # Parse and validate the response with Pydantic
+        devices_data = resp.json()
+        return [HubitatDeviceResponse(**device) for device in devices_data]
