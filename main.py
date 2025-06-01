@@ -1,37 +1,67 @@
 """FastMCP server implementation for Hubitat capabilities."""
 
 import asyncio
+from pathlib import Path
 from typing import Any
 
 from fastmcp import FastMCP
+from fastmcp.resources import TextResource
 
 from hubitat import HubitatClient
-from models.capabilities import DeviceAttribute, DeviceCommand
+from models.capabilities import DeviceCapability
 from models.devices import (
     CommandExecutionResult,
     CommandRequest,
     DeviceStateInfo,
     HubitatDeviceInfo,
 )
-from util import CapabilityDataLoader
 
 
 # Initialize FastMCP server
 mcp = FastMCP("Hubitat Capabilities")
 
+# Get the directory where this script is located
+script_dir = Path(__file__).parent
 
-@mcp.resource("hubitat://capabilities")
+# Load capability attributes file using absolute path
+attributes_path = script_dir / "capability_attributes.json"
+with open(attributes_path, "r") as f:
+    file_content = f.read()
+mcp.add_resource(
+    TextResource(
+        uri="hubitat://attributes",
+        name="Capability Attributes",
+        description="The device attributes for each capability",
+        text=file_content,
+    )
+)
+
+# Load capability commands file using absolute path
+commands_path = script_dir / "capability_commands.json"
+with open(commands_path, "r") as f:
+    file_content = f.read()
+mcp.add_resource(
+    TextResource(
+        uri="hubitat://commands",
+        name="Capability Commands",
+        description="The device commands for each capability",
+        text=file_content,
+    )
+)
+
+
+@mcp.resource("hubitat://capabilities", name="Capabilities")
 async def get_all_capabilities() -> dict[str, Any]:
     """Get a list of all available Hubitat capabilities.
 
     Returns:
         JSON string containing an array of capability names
     """
-    capabilities = CapabilityDataLoader.get_all_capability_names()
+    capabilities = DeviceCapability.allowed_capabilities()
     return {"capabilities": capabilities, "count": len(capabilities)}
 
 
-@mcp.resource("hubitat://devices")
+@mcp.resource("hubitat://devices", name="Current Devices")
 async def get_all_devices() -> list[HubitatDeviceInfo]:
     """Get all devices from Hubitat without attributes and commands.
 
@@ -72,56 +102,6 @@ async def _execute_command_safely(
             success=False,
             error_message=str(e),
         )
-
-
-@mcp.tool()
-async def get_capability_attributes(
-    capability_name: str,
-) -> list[DeviceAttribute] | dict[str, str | list[str]]:
-    """Get attributes for a specific capability.
-
-    Args:
-        capability_name: The name of the capability
-
-    Returns:
-        List of DeviceAttribute objects or error message if capability not found
-    """
-    # Get attributes for the capability
-    attributes = CapabilityDataLoader.get_capability_attributes(capability_name)
-
-    if attributes is None:
-        return {
-            "error": f"Capability '{capability_name}' not found",
-            "available_capabilities": CapabilityDataLoader.get_all_capability_names(),
-        }
-
-    # Return the list of DeviceAttribute objects directly
-    return attributes
-
-
-@mcp.tool()
-async def get_capability_commands(
-    capability_name: str,
-) -> list[DeviceCommand] | dict[str, str | list[str]]:
-    """Get commands for a specific capability.
-
-    Args:
-        capability_name: The name of the capability
-
-    Returns:
-        List of DeviceCommand objects or error message if capability not found
-    """
-    # Get commands for the capability
-    commands = CapabilityDataLoader.get_capability_commands(capability_name)
-
-    if commands is None:
-        return {
-            "error": f"Capability '{capability_name}' not found",
-            "available_capabilities": CapabilityDataLoader.get_all_capability_names(),
-        }
-
-    # Return the list of DeviceCommand objects directly
-    return commands
 
 
 @mcp.tool()
