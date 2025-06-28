@@ -25,40 +25,31 @@ mcp = FastMCP("Hubitat Capabilities")
 he_client = HubitatClient()
 room_manager = RoomManager(he_client)
 
-# Get the directory where this script is located
 script_dir = Path(__file__).parent
 
-# Load capability attributes file using absolute path
-attributes_path = script_dir / "capability_attributes.json"
-with open(attributes_path, "r") as f:
-    file_content = f.read()
-mcp.add_resource(
-    TextResource(
-        uri="hubitat://attributes",
-        name="Capability Attributes",
-        description="The device attributes for each capability",
-        text=file_content,
-    )
+
+@mcp.tool(
+    name="get_capability_attributes",
+    description="The available device attributes for each device capability"
 )
+async def get_capability_attributes() -> str:
+    attributes_path = script_dir / "capability_attributes.json"
+    with open(attributes_path, "r") as f:
+        return f.read()
 
-# Load capability commands file using absolute path
-commands_path = script_dir / "capability_commands.json"
-with open(commands_path, "r") as f:
-    file_content = f.read()
-mcp.add_resource(
-    TextResource(
-        uri="hubitat://commands",
-        name="Capability Commands",
-        description="The device commands for each capability",
-        text=file_content,
-    )
+
+@mcp.tool(
+    name="get_capability_commands",
+    description="The available commands for each device capability"
 )
+async def get_capability_commands() -> str:
+    commands_path = script_dir / "capability_commands.json"
+    with open(commands_path, "r") as f:
+        return f.read()
 
-# Define rooms.json path for dynamic loading
-rooms_path = script_dir / "rooms.json"
 
-
-@mcp.resource("hubitat://layout", name="Home Layout")
+# @mcp.resource("hubitat://layout", name="Home Layout")
+@mcp.tool()
 async def get_room_layout() -> str:
     """Get the current room hierarchy and device assignments.
 
@@ -68,6 +59,7 @@ async def get_room_layout() -> str:
     Returns:
         JSON string containing current room hierarchy and device assignments
     """
+    rooms_path = script_dir / "rooms.json"
     try:
         with open(rooms_path, "r") as f:
             return f.read()
@@ -76,7 +68,8 @@ async def get_room_layout() -> str:
         return '{"rooms": {}, "adjacency": {}}'
 
 
-@mcp.resource("hubitat://capabilities", name="Capabilities")
+# @mcp.resource("hubitat://capabilities", name="Capabilities")
+@mcp.tool()
 async def get_all_capabilities() -> dict[str, Any]:
     """Get a list of all available Hubitat capabilities.
 
