@@ -1,11 +1,11 @@
 """FastMCP server implementation for Hubitat capabilities."""
 
 import asyncio
+import sys
 from pathlib import Path
 from typing import Any
 
 from fastmcp import FastMCP
-from fastmcp.resources import TextResource
 
 from hubitat import HubitatClient
 from models.capabilities import DeviceCapability
@@ -248,5 +248,10 @@ async def delete_rooms(names: list[str]) -> dict:
     return await room_manager.delete_rooms(names)
 
 
-if __name__ == "__main__":
+def main():
     mcp.run()
+
+
+if __name__ == "__main__":
+    sys.exit(main())
+
