@@ -80,7 +80,8 @@ async def get_all_capabilities() -> dict[str, Any]:
     return {"capabilities": capabilities, "count": len(capabilities)}
 
 
-@mcp.resource("hubitat://devices", name="Current Devices")
+# @mcp.resource("hubitat://devices", name="Current Devices")
+@mcp.tool()
 async def get_all_devices() -> list[HubitatDeviceInfo]:
     """Get all devices from Hubitat without attributes and commands.
 
