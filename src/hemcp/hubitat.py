@@ -2,8 +2,8 @@ from typing import Any, Optional
 
 import httpx
 
-from models.devices import HubitatDeviceResponse
-from util import env_var
+from .models.devices import HubitatDeviceResponse
+from .util import env_var
 
 
 class HubitatClient:

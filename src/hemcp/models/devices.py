@@ -3,7 +3,7 @@
 from typing import Any, Self
 from pydantic import BaseModel, field_validator
 
-from models.capabilities import DeviceAttribute, DeviceCommand
+from ..models.capabilities import DeviceAttribute, DeviceCommand
 
 
 class HubitatDevice(BaseModel):

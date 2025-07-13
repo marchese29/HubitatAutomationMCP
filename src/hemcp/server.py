@@ -7,15 +7,15 @@ from typing import Any
 
 from fastmcp import FastMCP
 
-from hubitat import HubitatClient
-from models.capabilities import DeviceCapability
-from models.devices import (
+from .hubitat import HubitatClient
+from .models.capabilities import DeviceCapability
+from .models.devices import (
     CommandExecutionResult,
     CommandRequest,
     DeviceStateInfo,
     HubitatDeviceInfo,
 )
-from room_manager import RoomManager
+from .room_manager import RoomManager
 
 
 # Initialize FastMCP server
@@ -30,7 +30,7 @@ script_dir = Path(__file__).parent
 
 @mcp.tool(
     name="get_capability_attributes",
-    description="The available device attributes for each device capability"
+    description="The available device attributes for each device capability",
 )
 async def get_capability_attributes() -> str:
     attributes_path = script_dir / "capability_attributes.json"
@@ -40,7 +40,7 @@ async def get_capability_attributes() -> str:
 
 @mcp.tool(
     name="get_capability_commands",
-    description="The available commands for each device capability"
+    description="The available commands for each device capability",
 )
 async def get_capability_commands() -> str:
     commands_path = script_dir / "capability_commands.json"
@@ -254,4 +254,3 @@ def main():
 
 if __name__ == "__main__":
     sys.exit(main())
-
